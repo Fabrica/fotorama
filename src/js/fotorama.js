@@ -511,8 +511,18 @@ jQuery.Fotorama = function ($fotorama, opts) {
 
           if (type === 'stage') {
             triggerTriggerEvent('load');
+            formatStageFrame()
           }
         }, 5);
+      }
+      function formatStageFrame () {
+          if (typeof $frame.find === 'undefined') return;
+          var $caption, $image, imageHeight;
+          $caption = $frame.find('.' + captionClass);
+          $image = $frame.find('.' + imgClass);
+          imageHeight = $image.height() - 90;
+          $image.css('height', imageHeight);
+          $caption.css('text-align', 'center').find('.' + captionWrapClass).css('width', $image.width());
       }
 
       if (!src) {
