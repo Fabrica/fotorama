@@ -27,8 +27,7 @@ meta: {
     'src/js/measures.js',
     'src/templates/compiled.js',
     'src/js/auto-initialization.js',
-    'src/js/outro.js',
-    'bower_components/Processing.js/processing.js'
+    'src/js/outro.js'
   ]
 },
 jst: {
