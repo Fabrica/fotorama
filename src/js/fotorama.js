@@ -485,7 +485,10 @@ jQuery.Fotorama = function ($fotorama, opts) {
         //console.log('loaded: ' + src);
 
         console.log('$.Fotorama.measures[src]', $.Fotorama.measures[src]);
-
+        debugger
+        if (type === 'stage') {
+            img.height = img.height -90
+        }
         $.Fotorama.measures[src] = imgData.measures = $.Fotorama.measures[src] || {
           width: img.width,
           height: img.height,
@@ -517,12 +520,13 @@ jQuery.Fotorama = function ($fotorama, opts) {
       }
       function formatStageFrame () {
           if (typeof $frame.find === 'undefined') return;
-          var $caption, $image, imageHeight;
+          var $caption, $image, $parent;
           $caption = $frame.find('.' + captionClass);
           $image = $frame.find('.' + imgClass);
-          imageHeight = $image.height() - 90;
-          $image.css('height', imageHeight);
-          $caption.css('text-align', 'center').find('.' + captionWrapClass).css('width', $image.width());
+          $image.css('margin-left', $image.css('margin-left').replace('px','') - 14);
+          $parent = $image.parent()
+          if($image.width() === $parent.width()) $image.width($image.width() - 30)
+          $caption.css({'text-align': 'center', 'width':$image.width()});
       }
 
       if (!src) {
