@@ -304,7 +304,7 @@ function setHash (hash) {
   console.timeEnd('setHash ' + hash);
 }
 
-function fit ($el, measuresToFit, method) {
+function fit ($el, measuresToFit, method, type) {
   var elData = $el.data(),
       measures = elData.measures;
 
@@ -330,7 +330,7 @@ function fit ($el, measuresToFit, method) {
       height = minMaxLimit(measuresToFit.h, 0, fitFLAG ? height : Infinity);
       width = height * measures.ratio;
     }
-
+    if (type === 'stage' && width === measuresToFit.w) {width -= 90;}
     $el.css({
       width: Math.ceil(width),
       height: Math.ceil(height),

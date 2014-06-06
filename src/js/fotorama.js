@@ -502,7 +502,7 @@ jQuery.Fotorama = function ($fotorama, opts) {
             .addClass(imgClass + (fullFLAG ? ' ' + imgFullClass : ''))
             .prependTo($frame);
 
-        fit($img, specialMeasures || measures, specialFit || dataFrame.fit || opts.fit);
+        fit($img, specialMeasures || measures, specialFit || dataFrame.fit || opts.fit, type);
 
         $.Fotorama.cache[src] = frameData.state = 'loaded';
 
@@ -525,7 +525,6 @@ jQuery.Fotorama = function ($fotorama, opts) {
           $image = $frame.find('.' + imgClass);
           $image.css('margin-left', $image.css('margin-left').replace('px','') - 14);
           $parent = $image.parent()
-          if($image.width() === $parent.width()) $image.width($image.width() - 30)
           $caption.css({'text-align': 'center', 'width':$image.width()});
       }
 
