@@ -524,7 +524,6 @@ jQuery.Fotorama = function ($fotorama, opts) {
           $caption = $frame.find('.' + captionClass);
           $image = $frame.find('.' + imgClass);
           $image.css('margin-left', $image.css('margin-left').replace('px','') - 14);
-          $parent = $image.parent()
           $caption.css({'text-align': 'center', 'width':$image.width()});
       }
 
