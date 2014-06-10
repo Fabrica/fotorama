@@ -519,7 +519,6 @@ jQuery.Fotorama = function ($fotorama, opts) {
         }, 5);
       }
       function formatStageFrame () {
-          debugger;
           if (typeof $frame.find === 'undefined') return;
           var $caption, $image, $parent;
           $caption = $frame.find('.' + captionClass);
