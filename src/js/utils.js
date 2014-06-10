@@ -324,10 +324,14 @@ function fit ($el, measuresToFit, method, type) {
         coverFLAG = method === 'cover';
 
     if (biggerRatioFLAG && (fitFLAG || containFLAG) || !biggerRatioFLAG && coverFLAG) {
-      width = minMaxLimit(measuresToFit.w, 0, fitFLAG ? width : Infinity);
+      var newWidth = minMaxLimit(measuresToFit.w, 0, fitFLAG ? width : Infinity);
+      if(newWidth <= width)
+        width = newWidth;
       height = width / measures.ratio;
     } else if (biggerRatioFLAG && coverFLAG || !biggerRatioFLAG && (fitFLAG || containFLAG)) {
-      height = minMaxLimit(measuresToFit.h, 0, fitFLAG ? height : Infinity);
+      var newHeight = minMaxLimit(measuresToFit.h, 0, fitFLAG ? height : Infinity);
+      if(newHeight <= height)
+        height = newHeight;
       width = height * measures.ratio;
     }
     if (type === 'stage' && width === measuresToFit.w) {width -= 90;}
