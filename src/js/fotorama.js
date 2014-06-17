@@ -487,6 +487,7 @@ jQuery.Fotorama = function ($fotorama, opts) {
         console.log('$.Fotorama.measures[src]', $.Fotorama.measures[src]);
         debugger
         if (type === 'stage') {
+            img.width = img.width -90*img.width/img.height
             img.height = img.height -90
         }
         $.Fotorama.measures[src] = imgData.measures = $.Fotorama.measures[src] || {
