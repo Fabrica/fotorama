@@ -334,7 +334,6 @@ function fit ($el, measuresToFit, method, type) {
         height = newHeight;
       width = height * measures.ratio;
     }
-    if (type === 'stage' && width === measuresToFit.w) {width -= 90;}
     $el.css({
       width: Math.ceil(width),
       height: Math.ceil(height),

@@ -484,16 +484,19 @@ jQuery.Fotorama = function ($fotorama, opts) {
       function loaded () {
         //console.log('loaded: ' + src);
 
-        console.log('$.Fotorama.measures[src]', $.Fotorama.measures[src]);
-        debugger
         if (type === 'stage') {
-            img.width = img.width -90*img.width/img.height
-            img.height = img.height -90
+            if(img.height + 90*2 > $frame.height())
+            {
+                var deltaHeight = $frame.height()-90*2 - img.height;
+                img.width = img.width + deltaHeight*img.width/img.height
+                img.height += deltaHeight;
+            }
         }
+
         $.Fotorama.measures[src] = imgData.measures = $.Fotorama.measures[src] || {
-          width: img.width,
-          height: img.height,
-          ratio: img.width / img.height
+            width: img.width,
+            height: img.height,
+            ratio: img.width / img.height
         };
 
         setMeasures(imgData.measures.width, imgData.measures.height, imgData.measures.ratio, index);
@@ -521,11 +524,14 @@ jQuery.Fotorama = function ($fotorama, opts) {
       }
       function formatStageFrame () {
           if (typeof $frame.find === 'undefined') return;
-          var $caption, $image, $parent;
+          var $caption, $image, $parent, $capBottom;
           $caption = $frame.find('.' + captionClass);
           $image = $frame.find('.' + imgClass);
           $image.css('margin-left', $image.css('margin-left').replace('px','') - 14);
-          $caption.css({'text-align': 'center', 'width':$image.width()});
+          $capBottom = ($caption.parent().height() - $image.height() - 28) / 2 - $caption.height() - 28;
+          if($capBottom < 0)
+              $capBottom = 0;
+          $caption.css({'text-align': 'center', 'bottom':$capBottom, 'width':$image.width()});
       }
 
       if (!src) {
