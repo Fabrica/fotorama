@@ -531,7 +531,7 @@ jQuery.Fotorama = function ($fotorama, opts) {
           $capBottom = ($caption.parent().height() - $image.height() - 28) / 2 - $caption.height() - 28;
           if($capBottom < 0)
               $capBottom = 0;
-          $caption.css({'text-align': 'center', 'bottom':$capBottom, 'width':$image.width()});
+          $caption.css({'margin-left':(($frame.width()-$image.width())/2-14)+'px', 'bottom':$capBottom, 'width':$image.width()});
       }
 
       if (!src) {
