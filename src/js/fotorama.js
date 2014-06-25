@@ -532,6 +532,7 @@ jQuery.Fotorama = function ($fotorama, opts) {
           if($capBottom < 0)
               $capBottom = 0;
           $caption.css({'margin-left':(($frame.width()-$image.width())/2-14)+'px', 'bottom':$capBottom, 'width':$image.width()});
+          $caption.css('display', 'block');
       }
 
       if (!src) {
@@ -615,6 +616,7 @@ jQuery.Fotorama = function ($fotorama, opts) {
         }
 
         dataFrame.caption && $(div(captionClass, div(captionWrapClass, dataFrame.caption))).appendTo($frame);
+        $frame.find('.' + captionClass).css('display','none');
 
         dataFrame.video && $frame
           .addClass(stageFrameVideoClass)
