@@ -522,18 +522,15 @@ jQuery.Fotorama = function ($fotorama, opts) {
           }
         }, 5);
       }
-      function formatStageFrame () {
-          if (typeof $frame.find === 'undefined') return;
-          var $caption, $image, $parent, $capBottom;
-          $caption = $frame.find('.' + captionClass);
-          $image = $frame.find('.' + imgClass);
-          $image.css('margin-left', $image.css('margin-left').replace('px','') - 14);
-          $capBottom = ($caption.parent().height() - $image.height() - 28) / 2 - $caption.height() - 28;
-          if($capBottom < 0)
-              $capBottom = 0;
-          $caption.css({'margin-left':(($frame.width()-$image.width())/2-14)+'px', 'bottom':$capBottom, 'width':$image.width()});
-          $caption.css('display', 'block');
-      }
+        function formatStageFrame () {
+            if (typeof $frame.find === 'undefined') return;
+            var $caption, $image, $parent, $capBottom, $imgOffset;
+            $caption = $frame.find('.' + captionClass);
+            $image = $frame.find('.' + imgClass);
+            $image.css('margin-left', $image.css('margin-left').replace('px','') - 14);
+            formatCaption($caption, $image);
+            $caption.css('display', 'block');
+        }
 
       if (!src) {
         error();
@@ -592,6 +589,16 @@ jQuery.Fotorama = function ($fotorama, opts) {
         spinnerStop();
       });
     }
+  }
+
+  function formatCaption($cap, $img)
+  {
+    var $capBottom, $imgOffset;
+    $capBottom = ($cap.parent().height() - $img.height() - 28) / 2 - $cap.height() - 28;
+    if($capBottom < 0)
+        $capBottom = 0;
+    $imgOffset = $img.offset().left - $img.parent().offset().left;
+    $cap.css({'text-align':'center', 'margin-left':$imgOffset+'px', 'bottom':$capBottom, 'width':$img.width()});
   }
 
   function frameDraw (indexes, type) {
@@ -1049,6 +1056,9 @@ jQuery.Fotorama = function ($fotorama, opts) {
 
     if (!o_fade) {
       //console.time('slide');
+      var $targetImage = $(activeFrame.$stageFrame.find('.' + imgClass));
+      if($targetImage.length > 0)
+        formatCaption(activeFrame.$stageFrame.find('.' + captionClass), $targetImage);
       slide($stageShaft, {
         pos: -getPosByIndex(dirtyIndex, measures.w, opts.margin, repositionIndex),
         overPos: overPos,
@@ -1243,7 +1253,12 @@ jQuery.Fotorama = function ($fotorama, opts) {
     }
 
     stageLeft = $stage.offset().left;
-
+    for(var i = 0; i< $stageFrame.length; i++)
+    {
+        var b = $($stageFrame[i]).find('.' + imgClass);
+        if (b.length > 0 && b.offset().left > 0)
+            formatCaption($($stageFrame[i]).find('.' + captionClass), b);
+    }
     return this;
   };
 
@@ -1355,6 +1370,13 @@ jQuery.Fotorama = function ($fotorama, opts) {
 
   function clickToShow (showOptions) {
     clearTimeout(clickToShow.t);
+
+    for(var i = 0; i< $stageFrame.length; i++)
+    {
+        var b = $($stageFrame[i]).find('.' + imgClass);
+        if (b.length > 0 && b.offset().left > 0)
+            formatCaption($($stageFrame[i]).find('.' + captionClass), b);
+    }
 
     if (opts.clicktransition && opts.clicktransition !== opts.transition) {
       console.log('change transition to: ' + opts.clicktransition);
