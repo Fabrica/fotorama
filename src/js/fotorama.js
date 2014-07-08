@@ -485,7 +485,7 @@ jQuery.Fotorama = function ($fotorama, opts) {
         //console.log('loaded: ' + src);
 
         if (type === 'stage') {
-            if(img.height + 90*2 > $frame.height())
+            if(img.height + 90*2 > $frame.height() && document.location.pathname != '/')
             {
                 var deltaHeight = $frame.height()-90*2 - img.height;
                 img.width = img.width + deltaHeight*img.width/img.height
