@@ -490,6 +490,7 @@ jQuery.Fotorama = function ($fotorama, opts) {
                 var deltaHeight = $frame.height()-90*2 - img.height;
                 img.width = img.width + deltaHeight*img.width/img.height
                 img.height += deltaHeight;
+
             }
         }
 
