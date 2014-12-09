@@ -482,10 +482,15 @@ jQuery.Fotorama = function ($fotorama, opts) {
       }
 
       function loaded () {
-        //console.log('loaded: ' + src);
+        
+        function hasClass(element, className) {
+            return (" " + element.className + " ")
+                      .replace(/[\t\r\n\f]/g, " ")
+                      .indexOf( className ) >= 0;
+        }
 
         if (type === 'stage') {
-            if(img.height + 90*2 > $frame.height() && document.location.pathname != '/')
+            if(img.height + 90*2 > $frame.height() && !hasClass(document.getElementsByTagName('body')[0], 'fotorama-mainpage'))
             {
                 var deltaHeight = $frame.height()-90*2 - img.height;
                 img.width = img.width + deltaHeight*img.width/img.height
